@@ -1,7 +1,7 @@
-.git
 .idea
+.git
 bin
 out
 .classpath
 .project
-imageConverterNew.iml
+ImageConverterNew.iml
