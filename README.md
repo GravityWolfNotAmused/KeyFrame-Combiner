@@ -1,4 +1,4 @@
-# KeyFrame-Combiner
+# KeyFrame-Concatenater
 A 2D Animation combiner.
 
 
@@ -7,9 +7,9 @@ I originally made this for a friend to put together 2D Animation Keyframes, but 
 
 # The program current takes the following inputs to run:
 
-Open path (Browse button is the only functional way of input currently :C Sorry...).
+Open path - String input, and Browse buttons, but List doesn't update yet when String input is used.
 
-Save path (String input, and Browse button works completely).
+Save path - String input, and Browse button works completely.
 
 # WARNING: All photo's should be the same dimensions. 
 Height, Width.
