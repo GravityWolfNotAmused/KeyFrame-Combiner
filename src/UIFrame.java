@@ -1,7 +1,11 @@
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileFilter;
 
@@ -75,8 +79,8 @@ public class UIFrame {
         progressBar.setString("Choose a folder which includes png files.");
 
         openBrowse.addActionListener(e -> {
-            SwingUtilities.invokeLater(new Thread(() ->
-            {
+            SwingUtilities.invokeLater(new Thread(() -> {
+
                 loadChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
                 loadChooser.setDialogTitle("Select photo folder...");
                 loadChooser.setAcceptAllFileFilterUsed(false);
@@ -84,7 +88,9 @@ public class UIFrame {
                 loadChooser.showOpenDialog(loadChooser);
 
                 try {
-                    imageList = loadChooser.getSelectedFile().listFiles(filter);
+                    File folder = new File(loadChooser.getSelectedFile().getAbsolutePath());
+
+                    imageList = folder.listFiles(filter);
                     progressBar.setString("Set the width and height of the animation then Rows and Columns");
 
                     openPath.setText(loadChooser.getSelectedFile().getAbsolutePath());
@@ -94,7 +100,6 @@ public class UIFrame {
                     openPath.setText("");
                     getUpdateListView();
                 }
-
             }));
         });
 

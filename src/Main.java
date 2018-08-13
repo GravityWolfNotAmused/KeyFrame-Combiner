@@ -27,28 +27,28 @@ public class Main {
 
     static void drawImage() {
 
-        if (ui.getHeightString().equals("")) {
-            System.err.print("Height's Input is empty and the program will not save instructed file.\n");
+        if (ui.getWidthString().equals("")) {
+            ui.getProgressBar().setString("Width's Input is empty and the program will not save instructed file.");
             return;
         }
 
-        if (ui.getWidthString().equals("")) {
-            System.err.print("Width's Input is empty and the program will not save instructed file.\n");
+        if (ui.getHeightString().equals("")) {
+            ui.getProgressBar().setString("Height's Input is empty and the program will not save instructed file.");
             return;
         }
 
         if (ui.getRowString().equals("")) {
-            System.err.print("Row's Input is empty and the program will not save instructed file.\n");
+            ui.getProgressBar().setString("Row's Input is empty and the program will not save instructed file.");
             return;
         }
 
         if (ui.getColumnString().equals("")) {
-            System.err.print("Column's Input is empty and the program will not save instructed file.\n");
+            ui.getProgressBar().setString("Column's Input is empty and the program will not save instructed file.");
             return;
         }
 
         if (ui.getImageList() == null) {
-            System.err.print("Image list is empty and program will not save instructed file.\n");
+            ui.getProgressBar().setString("Image list is empty and program will not save instructed file.");
             return;
         }
 
@@ -68,7 +68,7 @@ public class Main {
 
             width = 0;
             height = 0;
-            System.err.print("Could not parse: Rows, Columns, Width, or height. Please check your input.");
+            ui.getProgressBar().setString("Could not parse: Rows, Columns, Width, or height. Please check your input.");
             return;
         }
 
@@ -91,11 +91,9 @@ public class Main {
                     bi = ImageIO.read(file);
                 } catch (IOException e) {
                     bi = null;
-
-                    ui.getProgressBar().setString("Error");
                     ui.getProgressBar().setValue(0);
 
-                    System.err.print("System could not read image/images at specified open path.\n");
+                    ui.getProgressBar().setString("System could not read image/images at specified open path.\n");
                     break;
                 }
 
@@ -113,7 +111,7 @@ public class Main {
             try {
                 ImageIO.write(result, "png", new File(ui.getSavePathString()));
             } catch (IOException e) {
-                System.err.print("Invalid File Path.\n");
+                ui.getProgressBar().setString("Invalid save path.");
             }
 
             ui.getProgressBar().setString("Done");
