@@ -1,0 +1,7 @@
+.git
+.idea
+bin
+out
+.classpath
+.project
+imageConverterNew.iml
