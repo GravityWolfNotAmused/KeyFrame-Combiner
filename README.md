@@ -7,13 +7,11 @@ I originally made this for a friend to put together 2D Animation Keyframes toget
 
 # The program currently takes the following inputs to run:
 
-Open path - String input, and Browse buttons, but List doesn't update yet when String input is used.
+Open path - Browse button works completely.
 
 Save path - String input, and Browse button works completely.
 
 # WARNING: All photo's should be the same dimensions. 
 Height, Width.
-
+#Warning make sure there enough spaces for the amount of images you are using. I.E 6 rows, and 10 columns for 60 images.
 Rows, Columns.
-
-Provided is a runnable jar file for users who don't understand programming.
