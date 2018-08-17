@@ -13,5 +13,6 @@ Save path - String input, and Browse button works completely.
 
 # WARNING: All photo's should be the same dimensions. 
 Height, Width.
-#Warning make sure there enough spaces for the amount of images you are using. E.G 6 rows, and 10 columns for 60 images.
+
+# Warning make sure there enough spaces for the amount of images you are using.
 Rows, Columns.

@@ -101,6 +101,7 @@ public class ProcessedImage {
                 ImageIO.write(result, "png", new File(savePath));
             } catch (IOException e) {
                 progressBar.setString("Invalid save path.");
+                progressBar.setValue(0);
             }
 
             progressBar.setString("Done");
