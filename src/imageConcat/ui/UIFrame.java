@@ -1,11 +1,11 @@
+package imageConcat.ui;
+
+import imageConcat.image.ProcessedImage;
+
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileFilter;
 
@@ -78,55 +78,61 @@ public class UIFrame {
         progressBar.setForeground(Color.GREEN);
         progressBar.setString("Choose a folder which includes png files.");
 
-        openBrowse.addActionListener(e -> {
-            SwingUtilities.invokeLater(new Thread(() -> {
+        openBrowse.addActionListener(e ->
+                SwingUtilities.invokeLater(new Thread(() -> {
 
-                loadChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-                loadChooser.setDialogTitle("Select photo folder...");
-                loadChooser.setAcceptAllFileFilterUsed(false);
-                loadChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-                loadChooser.showOpenDialog(loadChooser);
+                    loadChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+                    loadChooser.setDialogTitle("Select photo folder...");
+                    loadChooser.setAcceptAllFileFilterUsed(false);
+                    loadChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+                    loadChooser.showOpenDialog(loadChooser);
 
-                try {
-                    File folder = new File(loadChooser.getSelectedFile().getAbsolutePath());
+                    try {
+                        File folder = new File(loadChooser.getSelectedFile().getAbsolutePath());
 
-                    imageList = folder.listFiles(filter);
-                    progressBar.setString("Set the width and height of the animation then Rows and Columns");
+                        imageList = folder.listFiles(filter);
+                        progressBar.setString("Set the width and height of the animation then Rows and Columns");
 
-                    openPath.setText(loadChooser.getSelectedFile().getAbsolutePath());
-                    getUpdateListView();
-                } catch (Exception e1) {
-                    imageList = null;
-                    openPath.setText("");
-                    getUpdateListView();
-                }
-            }));
-        });
+                        openPath.setText(loadChooser.getSelectedFile().getAbsolutePath());
+                        getUpdateListView();
+                    } catch (Exception e1) {
+                        imageList = null;
+                        openPath.setText("");
+                        getUpdateListView();
+                    }
+                }))
+        );
 
-        saveBrowse.addActionListener(e -> {
-            new Thread(() -> {
-                try {
-                    saveChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-                    saveChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-                    saveChooser.showSaveDialog(saveChooser);
-                    saveFilePath.setText(saveChooser.getSelectedFile().getAbsolutePath());
-                }catch(Exception e2)
-                {
-                    openPath.setText("");
-                    getUpdateListView();
-                }
+        saveBrowse.addActionListener(e ->
+                new Thread(() -> {
+                    try {
+                        saveChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+                        saveChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+                        saveChooser.showSaveDialog(saveChooser);
+                        saveFilePath.setText(saveChooser.getSelectedFile().getAbsolutePath());
+                    } catch (Exception e2) {
+                        openPath.setText("");
+                        getUpdateListView();
+                    }
 
-                if (!saveChooser.getSelectedFile().getAbsolutePath().equals("") && !loadChooser.getSelectedFile().getAbsolutePath().equals(""))
-                    if (!widthInput.getText().equals("") && !heightInput.getText().equals(""))
-                        if (!rowInput.getText().equals("") && !columnInput.getText().equals(""))
-                            progressBar.setString("Click Save!");
-            }).run();
-        });
+                    if (!saveChooser.getSelectedFile().getAbsolutePath().equals("") && !loadChooser.getSelectedFile().getAbsolutePath().equals(""))
+                        if (!widthInput.getText().equals("") && !heightInput.getText().equals(""))
+                            if (!rowInput.getText().equals("") && !columnInput.getText().equals(""))
+                                progressBar.setString("Click Save!");
+                }).run()
+        );
 
         openPath.setColumns(1);
         saveFilePath.setColumns(1);
 
-        saveButton.addActionListener(e -> new Thread(() -> Main.drawImage()).run());
+        saveButton.addActionListener(e -> new Thread(() -> {
+            ProcessedImage pi = new ProcessedImage(widthInput.getText(), heightInput.getText(), rowInput.getText(), columnInput.getText(), saveFilePath.getText(), imageList, progressBar);
+            if(pi.checkForValidInput())
+                pi.drawImage();
+            else
+                return;
+        }).run());
+
 
         JLabel lblWidth = new JLabel("Width:");
         JLabel lblHeight = new JLabel("Height:");
@@ -273,33 +279,5 @@ public class UIFrame {
         for (File file : imageList) {
             stringImageList.addElement(file.getName());
         }
-    }
-
-    JProgressBar getProgressBar() {
-        return progressBar;
-    }
-
-    String getSavePathString() {
-        return saveFilePath.getText();
-    }
-
-    File[] getImageList() {
-        return imageList;
-    }
-
-    String getHeightString() {
-        return heightInput.getText();
-    }
-
-    String getWidthString() {
-        return widthInput.getText();
-    }
-
-    String getColumnString() {
-        return columnInput.getText();
-    }
-
-    String getRowString() {
-        return rowInput.getText();
     }
 }
